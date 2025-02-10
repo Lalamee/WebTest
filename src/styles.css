@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: 'Lato SemiBold', sans-serif;
+  font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  color: #000000;
+  margin: 0px 0px 0px 8px;
+}
+
+h1, h2 {
+  font-size: 45px;
+}
+
+h3 {
+  font-size: 40px;
+  padding: 15px 0px 24px;
+}
+
+h4 {
+  font-size: 19px;
+}

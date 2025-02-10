@@ -1,0 +1,69 @@
+<body>
+<h1>ПРИМЕНЕНИЕ УМНОГО ФИЛЬТРА</h1>
+<h2>ВСЕ ФИЛЬТРЫ</h2>
+<h3>Общие</h3>
+<div class="grid-container">
+  <div class="grid-item">
+    <h4>Тип жилья</h4>
+
+    <div class="progress-container">
+      <div class="progress-button" (click)="toggleProgress(1)" [class.filled]="progressState[1]">
+        <div class="progress-fill"></div>
+      </div>
+      <span class="button-text">Квартира</span>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-button" (click)="toggleProgress(2)" [class.filled]="progressState[2]">
+        <div class="progress-fill"></div>
+      </div>
+      <span class="button-text">Аппартаменты</span>
+    </div>
+
+  </div>
+  <div class="grid-item">
+    <h4>Планировка</h4>
+
+    <div class="progress-container">
+      <div class="progress-button" (click)="toggleProgress(3)" [class.filled]="progressState[3]">
+        <div class="progress-fill"></div>
+      </div>
+      <span class="button-text">Смежная</span>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-button" (click)="toggleProgress(4)" [class.filled]="progressState[4]">
+        <div class="progress-fill"></div>
+      </div>
+      <span class="button-text">Аппартаменты</span>
+    </div>
+  </div>
+  <div class="grid-item">
+    <h4>Этаж</h4>
+
+    <div class="progress-container">
+      <div class="progress-button" (click)="toggleProgress(5)" [class.filled]="progressState[5]">
+        <div class="progress-fill"></div>
+      </div>
+      <span class="button-text">Не первый</span>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-button" (click)="toggleProgress(6)" [class.filled]="progressState[6]">
+        <div class="progress-fill"></div>
+      </div>
+      <span class="button-text">Не последний</span>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-button" (click)="toggleProgress(7)" [class.filled]="progressState[7]">
+        <div class="progress-fill"></div>
+      </div>
+      <span class="button-text">Только последний</span>
+    </div>
+  </div>
+  <div class="grid-item">
+    <h4>Этажей в доме</h4>
+  </div>
+</div>
+</body>
