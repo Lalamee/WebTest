@@ -1,12 +1,63 @@
+.filter-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #106580;
+}
+
+.selected-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f5f5f5;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+.filter-text {
+  font-size: 14px;
+  color: #333;
+}
+
+.remove-btn {
+  background-color: transparent;
+  border: none;
+  color: #ff4d4d;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  color: #cc0000;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: 2vw 1vw;
+  gap: 1vw;
+  width: 100vw;
+  padding: 2vw;
+  box-sizing: border-box;
 }
 
 .grid-item {
   padding: 20px;
+  min-width: 200px;
 }
 
 .progress-container {
@@ -17,36 +68,53 @@
 }
 
 .progress-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
   background-color: #e0e0e0;
-  overflow: hidden;
   cursor: pointer;
-  position: relative;
   transition: background-color 0.3s;
 }
 
-.progress-fill {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
+.progress-button.active {
   background-color: #106580;
-  transition: width 0.5s ease, left 0.5s ease;
-}
-
-.filled .progress-fill {
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
 }
 
 .button-text {
   font-size: 14px;
   color: #333;
-  position: relative;
-  z-index: 1; /* Ставим текст поверх прогресса */
+}
+
+.select-container {
+  margin-bottom: 10px;
+}
+
+.clear-container {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.clear-text {
+  font-size: 14px;
+  color: #106580;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.input-container {
+  margin-bottom: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-top: 40px;
+}
+
+label {
+  font-size: 14px;
+  color: #333;
 }

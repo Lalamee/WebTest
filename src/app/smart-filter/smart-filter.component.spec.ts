@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SmartFilterComponent } from './smart-filter.component';
 
 describe('SmartFilterComponent', () => {
@@ -10,7 +9,7 @@ describe('SmartFilterComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SmartFilterComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(SmartFilterComponent);
     component = fixture.componentInstance;
