@@ -110,4 +110,18 @@ export class SmartFilterComponent {
     this.priceFilter = 0;
     this.pricePerM2Filter = 0;
   }
+
+  onSubmit(): void {
+    let message: string;
+    if (this.selectedFilters.length === 0) {
+      message = 'Нет выбранных фильтров.';
+    } else {
+      const filtersText = this.selectedFilters.map(f => f.label).join(', ');
+      message = 'Выбранные фильтры: ' + filtersText;
+    }
+    // Вывод в консоль
+    console.log(message);
+    // Вывод в виде сообщения (alert)
+    alert(message);
+  }
 }
