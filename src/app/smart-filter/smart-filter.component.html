@@ -49,19 +49,28 @@
     <div class="input-container">
       <label for="generalArea">Общая:</label>
       <mat-form-field>
-        <input matInput id="generalArea" [(ngModel)]="areaFilters.general" placeholder="Введите значение">
+        <input matInput id="generalArea"
+               [(ngModel)]="areaFilters.general"
+               placeholder="Введите значение"
+               (ngModelChange)="updateRangeFilter(100, 'Площадь Общая', $event)">
       </mat-form-field>
     </div>
     <div class="input-container">
       <label for="livingArea">Жилая:</label>
       <mat-form-field>
-        <input matInput id="livingArea" [(ngModel)]="areaFilters.living" placeholder="Введите значение">
+        <input matInput id="livingArea"
+               [(ngModel)]="areaFilters.living"
+               placeholder="Введите значение"
+               (ngModelChange)="updateRangeFilter(101, 'Площадь Жилая', $event)">
       </mat-form-field>
     </div>
     <div class="input-container">
       <label for="kitchenArea">Кухня:</label>
       <mat-form-field>
-        <input matInput id="kitchenArea" [(ngModel)]="areaFilters.kitchen" placeholder="Введите значение">
+        <input matInput id="kitchenArea"
+               [(ngModel)]="areaFilters.kitchen"
+               placeholder="Введите значение"
+               (ngModelChange)="updateRangeFilter(102, 'Площадь Кухня', $event)">
       </mat-form-field>
     </div>
   </div>
@@ -71,7 +80,10 @@
     <div class="input-container">
       <label for="price">Цена:</label>
       <mat-form-field>
-        <input matInput id="price" [(ngModel)]="priceFilter" placeholder="Введите стоимость">
+        <input matInput id="price"
+               [(ngModel)]="priceFilter"
+               placeholder="Введите значение"
+               (ngModelChange)="updateRangeFilter(103, 'Стоимость, ₽', $event)">
       </mat-form-field>
     </div>
   </div>
@@ -81,7 +93,10 @@
     <div class="input-container">
       <label for="pricePerM2">Цена за кв.м:</label>
       <mat-form-field>
-        <input matInput id="pricePerM2" [(ngModel)]="pricePerM2Filter" placeholder="Введите цену за м²">
+        <input matInput id="pricePerM2"
+               [(ngModel)]="pricePerM2Filter"
+               placeholder="Введите значение"
+               (ngModelChange)="updateRangeFilter(104, 'Цена за м²', $event)">
       </mat-form-field>
     </div>
   </div>

@@ -61,15 +61,15 @@ export class SmartFilterComponent {
       ]
     }
   ];
-
+  
   areaFilters = {
-    general: 0,
-    living: 0,
-    kitchen: 0
+    general: '',
+    living: '',
+    kitchen: ''
   };
 
-  priceFilter = 0;
-  pricePerM2Filter = 0;
+  priceFilter: any = '';
+  pricePerM2Filter: any = '';
 
   toggleFilter(option: { id: number; label: string }) {
     const index = this.selectedFilters.findIndex(f => f.id === option.id && !f.select);
@@ -106,9 +106,9 @@ export class SmartFilterComponent {
   clearFilters(): void {
     this.selectedFilters = [];
     this.selectedDevelopers = { 1: null, 2: null };
-    this.areaFilters = { general: 0, living: 0, kitchen: 0 };
-    this.priceFilter = 0;
-    this.pricePerM2Filter = 0;
+    this.areaFilters = { general: '', living: '', kitchen: '' };
+    this.priceFilter = '';
+    this.pricePerM2Filter = '';
   }
 
   onSubmit(): void {
@@ -119,9 +119,24 @@ export class SmartFilterComponent {
       const filtersText = this.selectedFilters.map(f => f.label).join(', ');
       message = 'Выбранные фильтры: ' + filtersText;
     }
-    // Вывод в консоль
     console.log(message);
-    // Вывод в виде сообщения (alert)
     alert(message);
+  }
+
+  updateRangeFilter(id: number, name: string, value: any): void {
+    const index = this.selectedFilters.findIndex(f => f.id === id);
+    if (value === '' || value === null) {
+      if (index > -1) {
+        this.selectedFilters.splice(index, 1);
+      }
+      return;
+    }
+    const numericValue = +value;
+    const filterLabel = `${name}: ${numericValue}`;
+    if (index > -1) {
+      this.selectedFilters[index].label = filterLabel;
+    } else {
+      this.selectedFilters.push({ id, label: filterLabel });
+    }
   }
 }
