@@ -19,6 +19,17 @@
   <div class="grid-container">
     <div *ngFor="let filter of filters" class="grid-item">
       <h4>{{ filter.title }}</h4>
+      <div class="slider-priority-container">
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinPriority
+          [max]=SliderData.MaxPriority
+          [step]=SliderData.StepPriority
+          [discrete] = true>
+          <input matSliderThumb>
+        </mat-slider>
+        <h6>Приоритет</h6>
+      </div>
       <ng-container *ngIf="!filter.isSelect; else selectTemplate">
         <div *ngIf="filter.title === 'Этаж'">
           <mat-form-field appearance="fill">
@@ -27,6 +38,15 @@
                    [(ngModel)]="floorFilter"
                    (ngModelChange)="updateRangeFilter(200, 'Этаж', $event)">
           </mat-form-field>
+          <mat-slider
+            class="slider"
+            [min]=SliderData.MinFloor
+            [max]=SliderData.MaxFloor
+            [step]=SliderData.StepFloor>
+            <input matSliderThumb
+                   [(ngModel)]="floorFilter"
+                   (ngModelChange)="updateRangeFilter(200, 'Этаж', $event)">
+          </mat-slider>
         </div>
         <div *ngFor="let option of filter.options" class="progress-container">
           <div class="progress-button"
@@ -45,6 +65,15 @@
                    [(ngModel)]="houseFloorsFilter"
                    (ngModelChange)="updateRangeFilter(300, 'Этажей в доме', $event)">
           </mat-form-field>
+          <mat-slider
+            class="slider"
+            [min]=SliderData.MinFloor
+            [max]=SliderData.MaxFloor
+            [step]=SliderData.StepFloor>
+            <input matSliderThumb
+                   [(ngModel)]="houseFloorsFilter"
+                   (ngModelChange)="updateRangeFilter(300, 'Этажей в доме', $event)">
+          </mat-slider>
         </div>
         <div *ngFor="let selectNumber of developerSelectNumbers" class="select-container">
           <select class="filter-select"
@@ -62,7 +91,18 @@
 
   <div class="grid-container">
     <div class="grid-item">
-      <h4>Площадь</h4>
+      <div class="slider-priority-container">
+        <h4>Площадь</h4>
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinPriority
+          [max]=SliderData.MaxPriority
+          [step]=SliderData.StepPriority
+          [discrete] = true>
+          <input matSliderThumb>
+        </mat-slider>
+        <h6>Приоритет</h6>
+      </div>
       <div class="input-container">
         <label for="generalArea">Общая:</label>
         <mat-form-field appearance="fill">
@@ -71,6 +111,15 @@
                  [(ngModel)]="areaFilters.general"
                  (ngModelChange)="updateRangeFilter(100, 'Площадь Общая', $event)">
         </mat-form-field>
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinGeneral
+          [max]=SliderData.MaxGeneral
+          [step]=SliderData.StepGeneral>
+          <input matSliderThumb
+                 [(ngModel)]="areaFilters.general"
+                 (ngModelChange)="updateRangeFilter(100, 'Площадь Общая', $event)">
+        </mat-slider>
       </div>
       <div class="input-container">
         <label for="livingArea">Жилая:</label>
@@ -80,6 +129,15 @@
                  [(ngModel)]="areaFilters.living"
                  (ngModelChange)="updateRangeFilter(101, 'Площадь Жилая', $event)">
         </mat-form-field>
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinLiving
+          [max]=SliderData.MaxLiving
+          [step]=SliderData.StepLiving>
+          <input matSliderThumb
+                 [(ngModel)]="areaFilters.living"
+                 (ngModelChange)="updateRangeFilter(101, 'Площадь Жилая', $event)">
+        </mat-slider>
       </div>
       <div class="input-container">
         <label for="kitchenArea">Кухня:</label>
@@ -89,11 +147,31 @@
                  [(ngModel)]="areaFilters.kitchen"
                  (ngModelChange)="updateRangeFilter(102, 'Площадь Кухня', $event)">
         </mat-form-field>
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinKitchen
+          [max]=SliderData.MaxKitchen
+          [step]=SliderData.StepKitchen>
+          <input matSliderThumb
+                 [(ngModel)]="areaFilters.kitchen"
+                 (ngModelChange)="updateRangeFilter(102, 'Площадь Кухня', $event)">
+        </mat-slider>
       </div>
     </div>
 
     <div class="grid-item">
-      <h4>Стоимость, ₽</h4>
+      <div class="slider-priority-container">
+        <h4>Стоимость, ₽</h4>
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinPriority
+          [max]=SliderData.MaxPriority
+          [step]=SliderData.StepPriority
+          [discrete] = true>
+          <input matSliderThumb>
+        </mat-slider>
+        <h6>Приоритет</h6>
+      </div>
       <div class="input-container">
         <label for="price">Цена:</label>
         <mat-form-field appearance="fill">
@@ -102,11 +180,31 @@
                  [(ngModel)]="priceFilter"
                  (ngModelChange)="updateRangeFilter(103, 'Стоимость, ₽', $event)">
         </mat-form-field>
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinPrice
+          [max]=SliderData.MaxPrice
+          [step]=SliderData.StepPrice>
+          <input matSliderThumb
+                 [(ngModel)]="priceFilter"
+                 (ngModelChange)="updateRangeFilter(103, 'Стоимость, ₽', $event)">
+        </mat-slider>
       </div>
     </div>
 
     <div class="grid-item">
-      <h4>Цена за м²</h4>
+      <div class="slider-priority-container">
+        <h4>Цена за м²</h4>
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinPriority
+          [max]=SliderData.MaxPriority
+          [step]=SliderData.StepPriority
+          [discrete] = true>
+          <input matSliderThumb>
+        </mat-slider>
+        <h6>Приоритет</h6>
+      </div>
       <div class="input-container">
         <label for="pricePerM2">Цена за кв.м:</label>
         <mat-form-field appearance="fill">
@@ -115,6 +213,15 @@
                  [(ngModel)]="pricePerM2Filter"
                  (ngModelChange)="updateRangeFilter(104, 'Цена за м²', $event)">
         </mat-form-field>
+        <mat-slider
+          class="slider"
+          [min]=SliderData.MinPricePerM2
+          [max]=SliderData.MaxPricePerM2
+          [step]=SliderData.StepPricePerM2>
+          <input matSliderThumb
+                 [(ngModel)]="pricePerM2Filter"
+                 (ngModelChange)="updateRangeFilter(104, 'Цена за м²', $event)">
+        </mat-slider>
       </div>
     </div>
   </div>

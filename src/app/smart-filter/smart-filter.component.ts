@@ -21,6 +21,36 @@ interface SelectedFilter {
   select?: number;
 }
 
+export enum SliderData {
+  MinPriority = 0,
+  MaxPriority = 10,
+  StepPriority = 1,
+
+  MinFloor = 1,
+  MaxFloor = 50,
+  StepFloor = 1,
+
+  MinGeneral = 10,
+  MaxGeneral  = 300,
+  StepGeneral  = 10,
+
+  MinLiving = 10,
+  MaxLiving = 300,
+  StepLiving = 10,
+
+  MinKitchen = 10,
+  MaxKitchen = 100,
+  StepKitchen = 10,
+
+  MinPrice = 100000,
+  MaxPrice = 100000000,
+  StepPrice = 100000,
+
+  MinPricePerM2 = 10000,
+  MaxPricePerM2 = 1000000,
+  StepPricePerM2 = 1000
+}
+
 @Component({
   selector: 'app-smart-filter',
   standalone: true,
@@ -140,4 +170,6 @@ export class SmartFilterComponent {
       this.selectedFilters.push({ id, label: filterLabel });
     }
   }
+
+  protected readonly SliderData = SliderData;
 }
