@@ -15,6 +15,12 @@ interface Filter {
   isSelect?: boolean;
 }
 
+interface SelectedFilter {
+  id: number;
+  label: string;
+  select?: number;
+}
+
 @Component({
   selector: 'app-smart-filter',
   standalone: true,
@@ -23,8 +29,7 @@ interface Filter {
   styleUrls: ['./smart-filter.component.css']
 })
 export class SmartFilterComponent {
-
-  selectedFilters: { id: number; label: string; select?: number }[] = [];
+  selectedFilters: SelectedFilter[] = [];
   selectedDevelopers: { [key: number]: FilterOption | null } = { 1: null, 2: null };
   developerSelectNumbers = [1, 2];
 
@@ -61,18 +66,20 @@ export class SmartFilterComponent {
       ]
     }
   ];
-  
-  areaFilters = {
+
+  areaFilters: { general: string; living: string; kitchen: string } = {
     general: '',
     living: '',
     kitchen: ''
   };
 
-  priceFilter: any = '';
-  pricePerM2Filter: any = '';
+  priceFilter: string = '';
+  pricePerM2Filter: string = '';
+  floorFilter: string = '';
+  houseFloorsFilter: string = '';
 
-  toggleFilter(option: { id: number; label: string }) {
-    const index = this.selectedFilters.findIndex(f => f.id === option.id && !f.select);
+  toggleFilter(option: FilterOption): void {
+    const index = this.selectedFilters.findIndex(f => f.id === option.id && f.select === undefined);
     if (index > -1) {
       this.selectedFilters.splice(index, 1);
     } else {
@@ -80,12 +87,8 @@ export class SmartFilterComponent {
     }
   }
 
-  removeFilter(filter: { id: number; label: string; select?: number }) {
-    if (
-      filter.select &&
-      this.selectedDevelopers[filter.select] &&
-      this.selectedDevelopers[filter.select]!.id === filter.id
-    ) {
+  removeFilter(filter: SelectedFilter): void {
+    if (filter.select && this.selectedDevelopers[filter.select]?.id === filter.id) {
       this.selectedDevelopers[filter.select] = null;
     }
     this.selectedFilters = this.selectedFilters.filter(f => f !== filter);
@@ -95,7 +98,7 @@ export class SmartFilterComponent {
     return this.selectedFilters.some(f => f.id === filterId);
   }
 
-  onDeveloperChange(selectNumber: number, option: FilterOption | null) {
+  onDeveloperChange(selectNumber: number, option: FilterOption | null): void {
     this.selectedFilters = this.selectedFilters.filter(f => f.select !== selectNumber);
     this.selectedDevelopers[selectNumber] = option;
     if (option) {
@@ -109,16 +112,14 @@ export class SmartFilterComponent {
     this.areaFilters = { general: '', living: '', kitchen: '' };
     this.priceFilter = '';
     this.pricePerM2Filter = '';
+    this.floorFilter = '';
+    this.houseFloorsFilter = '';
   }
 
   onSubmit(): void {
-    let message: string;
-    if (this.selectedFilters.length === 0) {
-      message = 'Нет выбранных фильтров.';
-    } else {
-      const filtersText = this.selectedFilters.map(f => f.label).join(', ');
-      message = 'Выбранные фильтры: ' + filtersText;
-    }
+    const message = this.selectedFilters.length === 0
+      ? 'Нет выбранных фильтров.'
+      : 'Выбранные фильтры: ' + this.selectedFilters.map(f => f.label).join(', ');
     console.log(message);
     alert(message);
   }

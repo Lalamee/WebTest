@@ -1,108 +1,126 @@
 <body>
-<h1>ПРИМЕНЕНИЕ УМНОГО ФИЛЬТРА</h1>
+<div class="smart-filter-container">
+  <h1>ПРИМЕНЕНИЕ УМНОГО ФИЛЬТРА</h1>
 
-<div *ngIf="selectedFilters.length > 0">
-  <div class="selected-filters">
-    <div *ngFor="let filter of selectedFilters" class="filter-item">
-      <span class="filter-text">{{ filter.label }}</span>
-      <button class="remove-btn" (click)="removeFilter(filter)">✖</button>
+  <div *ngIf="selectedFilters.length > 0" class="selected-filters-container">
+    <div class="selected-filters">
+      <div *ngFor="let filter of selectedFilters" class="filter-item">
+        <span class="filter-text">{{ filter.label }}</span>
+        <button class="remove-btn" (click)="removeFilter(filter)">✖</button>
+      </div>
+    </div>
+    <div class="clear-container">
+      <span class="clear-text" (click)="clearFilters()">Очистить</span>
     </div>
   </div>
-  <div class="clear-container">
-    <span class="clear-text" (click)="clearFilters()">Очистить</span>
-  </div>
-</div>
 
-<h2>ВСЕ ФИЛЬТРЫ</h2>
-<h3>Общие</h3>
-<div class="grid-container">
-  <div *ngFor="let filter of filters" class="grid-item">
-    <h4>{{ filter.title }}</h4>
-    <ng-container *ngIf="!filter.isSelect; else selectTemplate">
-      <div *ngFor="let option of filter.options" class="progress-container">
-        <div class="progress-button"
-             (click)="toggleFilter(option)"
-             [class.active]="isFilterSelected(option.id)">
+  <h2>ВСЕ ФИЛЬТРЫ</h2>
+  <h3>Общие</h3>
+  <div class="grid-container">
+    <div *ngFor="let filter of filters" class="grid-item">
+      <h4>{{ filter.title }}</h4>
+      <ng-container *ngIf="!filter.isSelect; else selectTemplate">
+        <div *ngIf="filter.title === 'Этаж'">
+          <mat-form-field appearance="fill">
+            <mat-label>Введите этаж</mat-label>
+            <input matInput type="number"
+                   [(ngModel)]="floorFilter"
+                   (ngModelChange)="updateRangeFilter(200, 'Этаж', $event)">
+          </mat-form-field>
         </div>
-        <span class="button-text">{{ option.label }}</span>
+        <div *ngFor="let option of filter.options" class="progress-container">
+          <div class="progress-button"
+               (click)="toggleFilter(option)"
+               [class.active]="isFilterSelected(option.id)">
+          </div>
+          <span class="button-text">{{ option.label }}</span>
+        </div>
+      </ng-container>
+
+      <ng-template #selectTemplate>
+        <div *ngIf="filter.title === 'Этажей в доме'">
+          <mat-form-field appearance="fill">
+            <mat-label>Введите сколько этажей в доме</mat-label>
+            <input matInput type="number"
+                   [(ngModel)]="houseFloorsFilter"
+                   (ngModelChange)="updateRangeFilter(300, 'Этажей в доме', $event)">
+          </mat-form-field>
+        </div>
+        <div *ngFor="let selectNumber of developerSelectNumbers" class="select-container">
+          <select class="filter-select"
+                  [(ngModel)]="selectedDevelopers[selectNumber]"
+                  (ngModelChange)="onDeveloperChange(selectNumber, $event)">
+            <option [ngValue]="null">Выбрать застройщика</option>
+            <option *ngFor="let option of filter.options" [ngValue]="option">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="grid-item">
+      <h4>Площадь</h4>
+      <div class="input-container">
+        <label for="generalArea">Общая:</label>
+        <mat-form-field appearance="fill">
+          <mat-label>Введите значение</mat-label>
+          <input matInput id="generalArea" type="number"
+                 [(ngModel)]="areaFilters.general"
+                 (ngModelChange)="updateRangeFilter(100, 'Площадь Общая', $event)">
+        </mat-form-field>
       </div>
-    </ng-container>
-
-    <ng-template #selectTemplate>
-      <div *ngFor="let selectNumber of developerSelectNumbers" class="select-container">
-        <select class="filter-select"
-                [(ngModel)]="selectedDevelopers[selectNumber]"
-                (ngModelChange)="onDeveloperChange(selectNumber, $event)">
-          <option [ngValue]="null">Выбрать застройщика</option>
-          <option *ngFor="let option of filter.options" [ngValue]="option">
-            {{ option.label }}
-          </option>
-        </select>
+      <div class="input-container">
+        <label for="livingArea">Жилая:</label>
+        <mat-form-field appearance="fill">
+          <mat-label>Введите значение</mat-label>
+          <input matInput id="livingArea"
+                 [(ngModel)]="areaFilters.living"
+                 (ngModelChange)="updateRangeFilter(101, 'Площадь Жилая', $event)">
+        </mat-form-field>
       </div>
-    </ng-template>
-  </div>
-</div>
+      <div class="input-container">
+        <label for="kitchenArea">Кухня:</label>
+        <mat-form-field appearance="fill">
+          <mat-label>Введите значение</mat-label>
+          <input matInput id="kitchenArea"
+                 [(ngModel)]="areaFilters.kitchen"
+                 (ngModelChange)="updateRangeFilter(102, 'Площадь Кухня', $event)">
+        </mat-form-field>
+      </div>
+    </div>
 
-<div class="grid-container">
-  <div class="grid-item">
-    <h4>Площадь</h4>
-    <div class="input-container">
-      <label for="generalArea">Общая:</label>
-      <mat-form-field>
-        <input matInput id="generalArea"
-               [(ngModel)]="areaFilters.general"
-               placeholder="Введите значение"
-               (ngModelChange)="updateRangeFilter(100, 'Площадь Общая', $event)">
-      </mat-form-field>
+    <div class="grid-item">
+      <h4>Стоимость, ₽</h4>
+      <div class="input-container">
+        <label for="price">Цена:</label>
+        <mat-form-field appearance="fill">
+          <mat-label>Введите значение</mat-label>
+          <input matInput id="price"
+                 [(ngModel)]="priceFilter"
+                 (ngModelChange)="updateRangeFilter(103, 'Стоимость, ₽', $event)">
+        </mat-form-field>
+      </div>
     </div>
-    <div class="input-container">
-      <label for="livingArea">Жилая:</label>
-      <mat-form-field>
-        <input matInput id="livingArea"
-               [(ngModel)]="areaFilters.living"
-               placeholder="Введите значение"
-               (ngModelChange)="updateRangeFilter(101, 'Площадь Жилая', $event)">
-      </mat-form-field>
-    </div>
-    <div class="input-container">
-      <label for="kitchenArea">Кухня:</label>
-      <mat-form-field>
-        <input matInput id="kitchenArea"
-               [(ngModel)]="areaFilters.kitchen"
-               placeholder="Введите значение"
-               (ngModelChange)="updateRangeFilter(102, 'Площадь Кухня', $event)">
-      </mat-form-field>
-    </div>
-  </div>
 
-  <div class="grid-item">
-    <h4>Стоимость, ₽</h4>
-    <div class="input-container">
-      <label for="price">Цена:</label>
-      <mat-form-field>
-        <input matInput id="price"
-               [(ngModel)]="priceFilter"
-               placeholder="Введите значение"
-               (ngModelChange)="updateRangeFilter(103, 'Стоимость, ₽', $event)">
-      </mat-form-field>
+    <div class="grid-item">
+      <h4>Цена за м²</h4>
+      <div class="input-container">
+        <label for="pricePerM2">Цена за кв.м:</label>
+        <mat-form-field appearance="fill">
+          <mat-label>Введите значение</mat-label>
+          <input matInput id="pricePerM2"
+                 [(ngModel)]="pricePerM2Filter"
+                 (ngModelChange)="updateRangeFilter(104, 'Цена за м²', $event)">
+        </mat-form-field>
+      </div>
     </div>
   </div>
 
-  <div class="grid-item">
-    <h4>Цена за м²</h4>
-    <div class="input-container">
-      <label for="pricePerM2">Цена за кв.м:</label>
-      <mat-form-field>
-        <input matInput id="pricePerM2"
-               [(ngModel)]="pricePerM2Filter"
-               placeholder="Введите значение"
-               (ngModelChange)="updateRangeFilter(104, 'Цена за м²', $event)">
-      </mat-form-field>
-    </div>
+  <div class="submit-container">
+    <button class="submit-btn" (click)="onSubmit()">Сабмит</button>
   </div>
-</div>
-
-<div class="submit-container">
-  <button class="submit-btn" (click)="onSubmit()">Сабмит</button>
 </div>
 </body>
